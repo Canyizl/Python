@@ -35,3 +35,13 @@ d = sqrt(np.sum(x_train - x) ** 2)
 #相差一个括号 d² = (x1+x2+····)² 导致严重偏差
 ```
 
+
+
+使用sklearn来简单实现KNN算法：
+
+主要函数：
+
+1. train_test_split() 随机划分样本数据为训练集和测试集
+2. KNeighborsClassifier(n_neighbors=6) KNN预测函数并确定k
+3. knn_sk.fit() 进行样本训练
+4. accuracy_score() 输出预测率
