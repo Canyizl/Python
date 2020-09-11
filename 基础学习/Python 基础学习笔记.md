@@ -109,9 +109,46 @@ from numpy import loadtxt
 
 
 
-### 3.其他机器学习相关函数记录
+### 3.sklearn相关
 
-##### 3.1 Counter对象、common函数
+##### 3.1 train_test_split()函数
+
+```python
+from sklearn.model_selection import train_test_split
+train_X,test_X,train_y,test_y = train_test_split(train_data,train_target,test_size=0.3,random_state=5)
+#train_data 待划分样本数据
+#train_target 待划分的标签
+#test_size 测试数据比例
+#random_state 设置随机数种子，保证每次都是同一个随机数。若为0或不填，则每次得到数据都不一样
+```
+
+##### 3.2 KNeighborsClassifier()函数
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+class sklearn.neighbors.KNeighborsClassifier(n_neighbors=5, weights=’uniform’, algorithm=’auto’, leaf_size=30, 
+p=2, metric=’minkowski’,metric_params=None, n_jobs=None, **kwargs)
+#n_neighbors:int,默认值是5 即为k值
+#weight： 'uniform'表示权重相同 'distance'表示权重是距离的倒数，越近影响越大
+#algorithm： 计算找出k的算法
+#leaf_size： int 默认30
+#p: int 默认为2	1：曼哈顿距离	2:欧式距离
+#其他一般不设置
+```
+
+##### 3.3 accuracy_score()函数
+
+```python
+from sklearn.metrics import accuracy_score
+accuracy_score(y_test, y_predict)
+#accuracy_score比较容易理解，但是它不能告诉你响应值的潜在分布，并且它也不能告诉你分类器犯错的类型。
+```
+
+
+
+### 4.其他机器学习相关函数记录
+
+##### 4.1 Counter对象、common函数
 
 ```python
 from collections import Counter
