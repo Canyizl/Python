@@ -61,8 +61,6 @@ Mini-batch 梯度下降综合了 batch 梯度下降与 stochastic 梯度下降�
 
 ##### 	(I)RMSprop
 
-
-
 ##### 	(II)Adam
 
 
@@ -74,3 +72,17 @@ Mini-batch 梯度下降综合了 batch 梯度下降与 stochastic 梯度下降�
 1.ReLu
 
  2.sigmoid
+
+3.Softmax
+
+
+
+### 实践实现
+
+```python
+from sklearn.model_selection import LinearRegression
+from sklearn.linear_model import Lasso,Ridge
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
+```
+
