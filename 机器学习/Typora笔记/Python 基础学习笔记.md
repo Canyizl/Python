@@ -153,6 +153,13 @@ reshape(-1,m) #改变维度为1行、m列
 
 ```
 
+##### 2.12 random.randn()
+
+```python
+#np.random.rand()返回一个或一组服从“0~1”均匀分布的随机样本值。随机样本取值范围是[0,1)，不包括1
+#添加一个高斯噪声
+```
+
 
 
 ### 3.sklearn相关
@@ -195,6 +202,12 @@ accuracy_score(y_test, y_predict)
 ```python
 from sklearn.model_selection import GridSearchCV
 lasso_model = GridSearchCV(model,param_grid={'alpha':alpha_can},cv=5) #cv=5 5折的交叉验证
+```
+
+##### 3.5 Polynomialfeatures()
+
+```python
+#进行特征的构造,使用多项式的方法来进行的，如果有a，b两个特征，那么它的2次多项式为（1,a,b,a^2,ab, b^2）
 ```
 
 
