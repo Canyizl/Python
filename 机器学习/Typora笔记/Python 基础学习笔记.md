@@ -88,6 +88,11 @@ a.flatten()：a是个数组，a.flatten()就是把a降到一维，默认是按�
 
 np.mean()是用来计算均值，np.std()是用来计算标准差
 
+```python
+from sklearn.preprocessing import StandardScaler
+StandardScaler()
+```
+
 ##### 2.5 argsort（）函数
 
 ```python
@@ -208,6 +213,41 @@ lasso_model = GridSearchCV(model,param_grid={'alpha':alpha_can},cv=5) #cv=5 5折
 
 ```python
 #进行特征的构造,使用多项式的方法来进行的，如果有a，b两个特征，那么它的2次多项式为（1,a,b,a^2,ab, b^2）
+```
+
+##### 3.6 LogisticRegression
+
+```python
+LogisticRegression(penalty='l2',  C=1.0)
+#penalty 惩罚项 可以为l1\l2
+#C 正则化系数。越小则正则化越强。
+```
+
+##### 3.7 LabelEncoder 文本标签数字化
+
+```python
+from sklearn.preprocessing import LabelEncoder
+#将文本标签转化为数字
+le = preprocessing.LabelEncoder()
+le.fit(['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
+print (le.classes_)
+y = le.transform(y)
+print ('Last Version, y = \n', y)
+```
+
+##### 3.8 StandardScaler() 
+
+```python
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures
+StandardScaler()
+#计算训练集的平均值和标准差
+```
+
+##### 3.9 predict()与predict_proba()
+
+```python
+#predict是训练后返回预测结果，是标签值。
+#predict_proba返回的是一个 n 行 k 列的数组， 第 i 行 第 j 列上的数值是模型预测 第 i 个预测样本为某个标签的概率，并且每一行的概率和为1。
 ```
 
 
