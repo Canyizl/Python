@@ -128,6 +128,8 @@ shape是查看数据有多少行多少列
 reshape()是数组array中的方法，作用是将数据重新组织
 
 ```python
+shape[0] #矩阵的行 个体个数
+shape[1] #矩阵的列 特征数
 numpy.arange(n).reshape(a, b)    
 #依次生成n个自然数，并且以a行b列的数组形式显示
 reshape(m,-1) #改变维度为m行、1列
