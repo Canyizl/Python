@@ -252,6 +252,15 @@ StandardScaler()
 #predict_proba返回的是一个 n 行 k 列的数组， 第 i 行 第 j 列上的数值是模型预测 第 i 个预测样本为某个标签的概率，并且每一行的概率和为1。
 ```
 
+##### 3.10  DecisionTreeClassifier()
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier(criterion='entropy')
+#默认为熵，也可以用gini。
+#还有参数max_depth,min_samples_split(如果该结点包含的样本数目大于base,则有可能对其分支)、min_samples_leaf(若将该结点分支后，得到的每个子节点样本数目都大于base,则完成分支，不然不再分。).
+```
+
 
 
 ### 4.其他机器学习相关函数记录
