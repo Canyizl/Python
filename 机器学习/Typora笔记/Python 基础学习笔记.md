@@ -160,11 +160,16 @@ reshape(-1,m) #改变维度为1行、m列
 
 ```
 
-##### 2.12 random.randn()
+##### 2.12 random.randn()和rand()
 
 ```python
 #np.random.rand()返回一个或一组服从“0~1”均匀分布的随机样本值。随机样本取值范围是[0,1)，不包括1
-#添加一个高斯噪声
+
+#np.random.randn(d0,d1,d2……dn) 
+#1)当函数括号内没有参数时，则返回一个浮点数； 
+#2）当函数括号内有一个参数时，则返回秩为1的数组，不能表示向量和矩阵； 
+#3）当函数括号内有两个及以上参数时，则返回对应维度的数组，能表示向量或矩阵； 
+#本函数可以返回一个或一组服从标准正态分布的随机样本值。添加一个高斯噪声
 ```
 
 
@@ -252,11 +257,12 @@ StandardScaler()
 #predict_proba返回的是一个 n 行 k 列的数组， 第 i 行 第 j 列上的数值是模型预测 第 i 个预测样本为某个标签的概率，并且每一行的概率和为1。
 ```
 
-##### 3.10  DecisionTreeClassifier()
+##### 3.10  DecisionTreeClassifier(),DecisionTreeRegressor()
 
 ```python
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier,DecisionTreeRegressor
 model = DecisionTreeClassifier(criterion='entropy')
+dt = DecisionTreeRegressor(criterion='mse')
 #默认为熵，也可以用gini。
 #还有参数max_depth,min_samples_split(如果该结点包含的样本数目大于base,则有可能对其分支)、min_samples_leaf(若将该结点分支后，得到的每个子节点样本数目都大于base,则完成分支，不然不再分。).
 ```
@@ -288,5 +294,17 @@ Counter({2: 3, 3: 2, 4: 2, 1: 1})
 ```python
 import pandas as pd
 data = pd.read_csv('Advertising.csv')
+#sep='\s+',encoding='utf-8' 可用于txt文件
 ```
 
+
+
+##### 4.3 pandas的 .drop()
+
+```python
+frame.drop(['a'])
+frame.drop(['Ohio'], axis = 1)
+#drop函数默认删除行，列需要加axis = 1
+```
+
+ 
