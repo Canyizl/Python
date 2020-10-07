@@ -121,4 +121,75 @@ H为原图长度，F为卷积核的长度，P为边缘0的行数，S为步长
 
 ##### 经典网络
 
-Alexnet
+Alexnet 2012
+
+Vgg 2014 : pooling后损失信息，pooling后翻倍来弥补损失
+
+Resnet 2015 (首选)
+
+plus：感受野
+
+
+
+### 卷积网络模块构建
+
+一般 卷积层+relu层，池化层可以写成一个套餐
+
+注意卷积最后结果还是一个特征图，需要把图转换成向量才能做分类或者回归任务。
+
+
+
+### 基于经典网络架构训练图像分类模型
+
+##### torchvision
+
+##### 数据预处理部分:
+
+​	数据增强: torchvision中transforms模块自带功能，比较实用
+
+​	数据预处理： torchvision中transforms也帮我们实现好了，直接调用即可
+
+​	DataLoader模块之间读取batch数据
+
+##### 网络模块设置：
+
+​	加载预训练模型，torchvision中有很多经典网络架构，可以用人家训练好的权重参数来继续训练，也就是所谓的迁移学习。
+
+​	需要注意的是别人训练好的任务不同，需要把最后的head层改一改，一般也就是最后的全连接层，改成我们自己的任务。
+
+​	训练时可以全部重头训练，也可以只训练最后我们任务的层，因为前几层都是做特征提取的，本质任务目标相同。
+
+##### 网络模型保存与测试：
+
+​	模型保存的时候可以带有选择性，例如在验证集中如果当前效果好则保存
+
+​	读取模型进行实际测试
+
+##### Data Augmentation 数据增强的作用：
+
+​	对图像做翻转、旋转、缩放等操作，更高效地利用数据。
+
+制作好数据源：
+
+​	data_transforms中指定了所有图像预处理操作
+
+​	imageFolder假设所有的文件按文件夹保存好，每个文件夹下存储同一类别的图片，文件夹的名字为分类的名字。
+
+```python
+data_transforms = {
+	'train': transforms.Compose([transforms.RandomRotation(45), #随机选择，-45到45度之间随机选
+   transforms.CenterCrop(224), #从中心开始裁剪 224*224
+   transforms.RandomHorizontalFlip(p=0.5), #随机水平翻转 选择一个概率
+   transforms.RandomVerticalFlip(p=0.5) #随机垂直翻转
+  transforms.ColorJitter(brightness=0.2,contrast=0.1,saturation=0.1,hue=0.1), #参数1为亮度，参数2为对比度，参数3为饱和度，参数4为色相。
+   transforms.RandomGrayscale(p=0.025) #概率转换成灰度率                              
+   transforms.ToTensor(),
+   transforms.Normalize([0.485,0.456,0.406],[0.229,0.224,0.225]) #均值，标准差
+   ]),
+    'valid': transforms.Compose([transforms.Resize(256),
+transforms.CenterCrop(224),                           transforms.ToTensor(),
+transforms.Normalize([0.485,0.456,0.406],[0.229,0.224,0.225])
+  ]),
+}
+```
+
