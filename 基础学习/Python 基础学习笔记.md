@@ -88,6 +88,11 @@ a.flatten()：a是个数组，a.flatten()就是把a降到一维，默认是按�
 
 np.mean()是用来计算均值，np.std()是用来计算标准差
 
+```python
+from sklearn.preprocessing import StandardScaler
+StandardScaler()
+```
+
 ##### 2.5 argsort（）函数
 
 ```python
@@ -107,6 +112,66 @@ from numpy import loadtxt
 
 对于CSV文件，读取后的数据为['1,5'  '2,4' ],用‘,’分割其中的每行数据。而参数delimiter=',' 可以指定数据的分隔符。
 
+##### 2.7 np.random.shuffle
+
+重新排序返回一个随机序列作用类似洗牌。
+
+##### 2.8 np.arange()
+
+ np.arange()函数返回一个有终点和起点的固定步长的排列，如[1,2,3,4,5]，起点是1，终点是5，步长为1。
+
+三个参数时，第一个参数为起点，第二个参数为终点，第三个参数为步长。其中步长支持小数。
+
+##### 2.9 shape和reshape
+
+shape是查看数据有多少行多少列
+reshape()是数组array中的方法，作用是将数据重新组织
+
+```python
+shape[0] #矩阵的行 个体个数
+shape[1] #矩阵的列 特征数
+numpy.arange(n).reshape(a, b)    
+#依次生成n个自然数，并且以a行b列的数组形式显示
+reshape(m,-1) #改变维度为m行、1列
+reshape(-1,m) #改变维度为1行、m列
+#-1 也可以代表自动计算，即不给出相应的值
+```
+
+##### 2.10 cumprod()函数
+
+```python
+    a = np.array([1,2,3],[4,5,6]])
+    >>>a.cumsum(0)
+    array([[1,2,3],
+         [5,7,9]])
+ 	>>>a.cumprod(1)
+    array([[1,2,6],
+        [4,20,120]])
+```
+
+0代表列的计算，1代表行的计算，即对列和行分别累积求和、 积。
+
+而且其结果不聚合，产生的是中间数组。
+
+##### 2.11 logspace()函数
+
+```python
+#np.logspace(start=开始值，stop=结束值，num=元素个数，base=指定对数的底, endpoint=是否包含结束值)创建等比数列
+
+```
+
+##### 2.12 random.randn()和rand()
+
+```python
+#np.random.rand()返回一个或一组服从“0~1”均匀分布的随机样本值。随机样本取值范围是[0,1)，不包括1
+
+#np.random.randn(d0,d1,d2……dn) 
+#1)当函数括号内没有参数时，则返回一个浮点数； 
+#2）当函数括号内有一个参数时，则返回秩为1的数组，不能表示向量和矩阵； 
+#3）当函数括号内有两个及以上参数时，则返回对应维度的数组，能表示向量或矩阵； 
+#本函数可以返回一个或一组服从标准正态分布的随机样本值。添加一个高斯噪声
+```
+
 
 
 ### 3.sklearn相关
@@ -118,7 +183,7 @@ from sklearn.model_selection import train_test_split
 train_X,test_X,train_y,test_y = train_test_split(train_data,train_target,test_size=0.3,random_state=5)
 #train_data 待划分样本数据
 #train_target 待划分的标签
-#test_size 测试数据比例
+#test_size 测试数据比例 默认为0.75 也可150代表test数据有150个
 #random_state 设置随机数种子，保证每次都是同一个随机数。若为0或不填，则每次得到数据都不一样
 ```
 
@@ -144,6 +209,64 @@ accuracy_score(y_test, y_predict)
 #accuracy_score比较容易理解，但是它不能告诉你响应值的潜在分布，并且它也不能告诉你分类器犯错的类型。
 ```
 
+##### 3.4 GridSearchCV 交叉验证
+
+```python
+from sklearn.model_selection import GridSearchCV
+lasso_model = GridSearchCV(model,param_grid={'alpha':alpha_can},cv=5) #cv=5 5折的交叉验证
+```
+
+##### 3.5 Polynomialfeatures()
+
+```python
+#进行特征的构造,使用多项式的方法来进行的，如果有a，b两个特征，那么它的2次多项式为（1,a,b,a^2,ab, b^2）
+```
+
+##### 3.6 LogisticRegression
+
+```python
+LogisticRegression(penalty='l2',  C=1.0)
+#penalty 惩罚项 可以为l1\l2
+#C 正则化系数。越小则正则化越强。
+```
+
+##### 3.7 LabelEncoder 文本标签数字化
+
+```python
+from sklearn.preprocessing import LabelEncoder
+#将文本标签转化为数字
+le = preprocessing.LabelEncoder()
+le.fit(['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
+print (le.classes_)
+y = le.transform(y)
+print ('Last Version, y = \n', y)
+```
+
+##### 3.8 StandardScaler() 
+
+```python
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures
+StandardScaler()
+#计算训练集的平均值和标准差
+```
+
+##### 3.9 predict()与predict_proba()
+
+```python
+#predict是训练后返回预测结果，是标签值。
+#predict_proba返回的是一个 n 行 k 列的数组， 第 i 行 第 j 列上的数值是模型预测 第 i 个预测样本为某个标签的概率，并且每一行的概率和为1。
+```
+
+##### 3.10  DecisionTreeClassifier(),DecisionTreeRegressor()
+
+```python
+from sklearn.tree import DecisionTreeClassifier,DecisionTreeRegressor
+model = DecisionTreeClassifier(criterion='entropy')
+dt = DecisionTreeRegressor(criterion='mse')
+#默认为熵，也可以用gini。
+#还有参数max_depth,min_samples_split(如果该结点包含的样本数目大于base,则有可能对其分支)、min_samples_leaf(若将该结点分支后，得到的每个子节点样本数目都大于base,则完成分支，不然不再分。).
+```
+
 
 
 ### 4.其他机器学习相关函数记录
@@ -163,3 +286,25 @@ Counter({2: 3, 3: 2, 4: 2, 1: 1})
 ```
 
 用于KNN底层实现中，统计最多的Neighbors。
+
+
+
+##### 4.2 pandas的read_csv(最简单的方式)
+
+```python
+import pandas as pd
+data = pd.read_csv('Advertising.csv')
+#sep='\s+',encoding='utf-8' 可用于txt文件
+```
+
+
+
+##### 4.3 pandas的 .drop()
+
+```python
+frame.drop(['a'])
+frame.drop(['Ohio'], axis = 1)
+#drop函数默认删除行，列需要加axis = 1
+```
+
+ 
