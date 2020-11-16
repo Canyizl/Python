@@ -35,3 +35,22 @@
 #作者Git	
 ```
 
+
+
+##### 相关误差标准
+
+IOU：交区域和并区域的比值
+
+TP ：True positives
+
+TN :  True Negatives
+
+FP :  False Positives	
+
+FN:  False Negatives
+
+Precision : TP / (TP+FP)
+
+Recall: TP / (TP+FN)
+
+AP: 利用不同的Precision和Recall的点的组合，画出来的曲线下面的面积。
